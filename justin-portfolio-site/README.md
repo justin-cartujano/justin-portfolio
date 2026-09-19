@@ -1,16 +1,16 @@
+[README.md](https://github.com/user-attachments/files/32416409/README.md)
 # Justin Cartujano — Portfolio
 
-Landing Page & Automation Specialist for fitness studios.
+Website Designer, Meta Ads & AI Automations Specialist.
 
-Single-page portfolio site. Everything (styles, scripts, images, fonts reference)
-lives in `index.html`, so there is no build step and nothing to install.
+Single-page portfolio site. Everything lives in `index.html`, so there is no build step and nothing to install.
 
 ## Files
 
 | File | What it is |
 |---|---|
 | `index.html` | The entire website. This is the only file that matters. |
-| `_headers` | Cloudflare Pages caching rules. Optional. |
+| `_headers` | Cloudflare Pages caching and security rules. Optional. |
 | `.gitignore` | Keeps OS junk files out of the repo. |
 
 ## Deploying on Cloudflare Pages
