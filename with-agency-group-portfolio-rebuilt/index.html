@@ -229,6 +229,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--cream);
+      white-space: nowrap;
     }
     .sticker-pill-blue {
       background: var(--blue);
@@ -248,6 +249,26 @@
     .ticker-track .tk-ink { color: var(--ink); }   /* must out-specify .ticker-track span */
     .d-ib       { display: inline-block; }
     .ta-c       { text-align: center; }
+    /* ── PORTFOLIO DEMO stand-ins (no live widgets) ── */
+    .demo-cal { background:#fff; border:1px solid rgba(122,0,0,0.12); border-radius:10px; padding:18px 18px 14px; }
+    .demo-cal-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
+    .demo-cal-month { font-weight:700; font-size:14px; color:var(--ink); }
+    .demo-cal-tz { font-size:11px; color:rgba(26,16,16,0.45); }
+    .demo-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center; font-size:12px; color:var(--ink); }
+    .demo-cal-grid .dow { font-size:10px; font-weight:700; letter-spacing:.08em; color:rgba(26,16,16,0.4); padding-bottom:4px; }
+    .demo-cal-grid span { width:30px; height:30px; margin:0 auto; border-radius:50%;
+      display:flex; align-items:center; justify-content:center; }
+    .demo-cal-grid .dow { width:auto; height:auto; border-radius:0; }
+    .demo-cal-grid .mut { color:rgba(26,16,16,0.25); }
+    .demo-cal-grid .sel { background:var(--burgundy); color:var(--cream); font-weight:700; }
+    .demo-cal-slots { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+    .demo-cal-slots .slot { flex:1 1 calc(50% - 8px); text-align:center; border:1px solid var(--burgundy); color:var(--burgundy);
+      border-radius:100px; padding:8px 0; font-size:12px; font-weight:600; }
+    .demo-note { margin-top:14px; text-align:center; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:rgba(26,16,16,0.35); }
+    .demo-form { display:flex; border:1px solid rgba(26,16,16,0.2); border-radius:4px; overflow:hidden; background:#fff; }
+    .demo-input { flex:1; padding:13px 14px; font-size:14px; color:rgba(26,16,16,0.4); }
+    .demo-btn { background:var(--burgundy); color:var(--cream); padding:13px 22px; font-size:13px; font-weight:700; white-space:nowrap; }
+    @media (max-width:768px){ .demo-cal-slots .slot { flex:1 1 100%; } }
     /* Bigger hero stickers */
     .sticker-lg .sticker-pill,
     .sticker-lg .sticker-pill-dark,
@@ -683,6 +704,26 @@
       opacity: 0.12;
     }
     .home-cta-content { position: relative; z-index: 1; }
+    /* Booking calendar embed: cream card so the light widget sits cleanly on the burgundy block */
+    .booking-embed {
+      max-width: 920px;
+      margin: 0 auto;
+      background: var(--cream);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+    }
+    .booking-embed iframe {
+      width: 100%;
+      min-height: 620px;   /* fallback until form_embed.js sets the real height */
+      border: 0;
+      display: block;
+      border-radius: 12px;
+      background: #fff;
+    }
+    @media (max-width: 768px) {
+      .booking-embed { padding: 8px; border-radius: 14px; }
+    }
     .home-cta h2 { font-size: clamp(32px, 3.5vw, 56px); color: var(--cream); margin-bottom: 10px; }
     .home-cta h2 em { font-style: italic; font-family: var(--font-serif); color: #f5c8c8; }
     .home-cta p { font-size: 17px; font-weight: 300; color: rgba(250,248,238,0.68); max-width: 500px; margin: 0 auto 44px; line-height: 1.7; }
@@ -723,6 +764,7 @@
       padding: 70px 64px 80px;
       background: var(--cream);
     }
+    .mktg-hero-left > .sticker { align-self: flex-start; }   /* prevent column-flex from stretching the CTA full-width */
     .mktg-hero-left h1 {
       font-size: clamp(42px, 4vw, 64px);
       font-weight: 900;
@@ -773,7 +815,9 @@
       flex-direction: column;
       justify-content: center;
       padding: 72px 64px;
+      min-width: 0;
     }
+    .mktg-split-content > .sticker { align-self: flex-start; }   /* size the CTA to its text, not the column */
     .mktg-split-content h2 { font-size: clamp(28px, 2.5vw, 40px); font-weight: 900; margin-top: 10px; margin-bottom: 20px; line-height: 1.1; }
     .mktg-split-content h2 em { font-style: italic; font-family: var(--font-serif); color: var(--burgundy); }
     .mktg-split-content p { font-size: 15px; font-weight: 300; color: var(--ink-lt); line-height: 1.75; margin-bottom: 12px; }
@@ -929,6 +973,12 @@
       border: 1px solid rgba(122,0,0,0.1);
       border-radius: 4px;
       padding: 44px 40px;
+      /* Don't let the grid stretch this card to the height of the tall text column.
+         align-self:start makes the box hug its own content, so there is no empty
+         space padding it out above or below the beehiiv form. */
+      align-self: start;
+      display: flex;
+      flex-direction: column;
     }
     .subscribe-box h3 { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
     .subscribe-box p { font-size: 14px; font-weight: 300; color: var(--ink-lt); line-height: 1.65; margin-bottom: 24px; }
@@ -936,7 +986,12 @@
     .sub-form input { padding: 13px 16px; border: 1.5px solid rgba(122,0,0,0.15); border-radius: 2px; background: var(--white); font-family: var(--font-sans); font-size: 14px; outline: none; transition: border-color 0.2s; }
     .sub-form input:focus { border-color: var(--burgundy); }
     .sub-form input::placeholder { color: rgba(26,16,16,0.35); }
+    /* beehiiv embed sits inside the cream subscribe card. It must be allowed to use the
+       card's full inner width, otherwise the form's email field gets squeezed on phones. */
+    .beehiiv-embed { width: 100%; min-height: 90px; }
+    .beehiiv-embed iframe { width: 100% !important; max-width: 100% !important; min-width: 0 !important; border: 0; display: block; }
     .sub-note { font-size: 11px; color: rgba(26,16,16,0.35); margin-top: 6px; }
+    .subscribe-box .sub-note { margin-bottom: 0; }   /* out-specify .subscribe-box p */
 
     .nl-issues { padding: 0 0 96px; }
     .nl-issues-gym { background: var(--ink); }
@@ -993,7 +1048,9 @@
       .hero-left,
       .mktg-hero-left,
       .sales-hero-left { min-height: calc(100vh - 72px); }
-      .hero-left { padding: 60px 32px; }
+      .hero-left,
+      .mktg-hero-left,
+      .sales-hero-left { padding: 60px 32px; }
       .intro-grid { grid-template-columns: 1fr; gap: 48px; }
       .branches-grid,
       .mktg-split,
@@ -1011,6 +1068,19 @@
     @media (max-width: 768px) {
       .container, .container-sm { padding: 0 20px; }
       nav { padding: 0 20px; }
+      .mktg-split-content { padding: 48px 28px; }
+      /* tighter card padding on phones so the subscribe form keeps its width */
+      .subscribe-box { padding: 28px 16px; }
+      .pillar { padding: 32px 18px; }
+      /* Compact the large hero CTA pills so they stay on one line on phones */
+      .sticker-lg .sticker-pill,
+      .sticker-lg .sticker-pill-dark,
+      .sticker-lg .sticker-pill-blue {
+        padding: 13px 22px;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+      }
+      /* Everything below stacks to a single column on phones. */
       .services-grid { grid-template-columns: 1fr; }
       .nl-cards { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; }
@@ -1018,8 +1088,15 @@
       .process-step:last-child { border-bottom: none; }
       .footer-grid { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: 1fr 1fr; }
+      /* Recent Issues: 3 narrow columns squash the headlines, so stack them. */
       .issues-grid { grid-template-columns: 1fr; }
+      .issue-card { padding: 24px 20px; }
       .nl-body-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 380px) {
+      /* smallest phones only: trim padding a little further */
+      .subscribe-box { padding: 24px 10px; }
+      .container, .container-sm { padding: 0 14px; }
     }
   </style>
 </head>
@@ -1207,7 +1284,7 @@
           <div class="branch-overlay"></div>
           <div class="branch-content">
             <h3><em>Sales</em><br/>With Agency</h3>
-            <p>Revenue infrastructure built for course creators and training brands ready to convert attention into income.</p>
+            <p>Revenue infrastructure built for boutique health, fitness and beauty brands ready to convert attention into income.</p>
             <div class="branch-sticker-wrap">
               <div class="sticker">
                 <div class="sticker-pill-dark">Explore Sales →</div>
@@ -1313,9 +1390,27 @@
         <span class="section-label" style="color:#f5c8c8;">Ready?</span>
         <h2>Let's build something<br/><em>worth talking about.</em></h2>
         <p>Whether you need marketing, sales infrastructure, or a brand presence that converts, we're ready when you are.</p>
-        <a href="#" onclick="return false;" aria-disabled="true" class="sticker sticker-lg d-ib">
-          <div class="sticker-pill" style="background:var(--cream);border-color:rgba(250,248,238,0.5);color:var(--burgundy);">Book a Strategy Call →</div>
-        </a>
+        <!-- PORTFOLIO DEMO: static stand-in for the live GoHighLevel booking calendar.
+             Non-functional by design so demo visitors cannot book a real appointment. -->
+        <div class="booking-embed">
+          <div class="demo-cal" aria-label="Booking calendar (demo)">
+            <div class="demo-cal-head">
+              <span class="demo-cal-month">March 2026</span>
+              <span class="demo-cal-tz">30 min &middot; Strategy Call</span>
+            </div>
+            <div class="demo-cal-grid">
+              <span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span>
+              <span class="mut">23</span><span class="mut">24</span><span class="mut">25</span><span class="mut">26</span><span class="mut">27</span><span class="mut">28</span><span>1</span>
+              <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+              <span>9</span><span>10</span><span class="sel">11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+              <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+            </div>
+            <div class="demo-cal-slots">
+              <span class="slot">9:00 AM</span><span class="slot">11:30 AM</span><span class="slot">2:00 PM</span><span class="slot">4:30 PM</span>
+            </div>
+            <div class="demo-note">Demo preview &middot; booking disabled</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1326,12 +1421,12 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img id="img-footlogo" src="data:image/png;base64,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" alt="With Agency Group" class="footer-brand-logo" />
-          <p>Boutique growth partners for course creators and training brands. Marketing. Sales. Reach.</p>
+          <p>Boutique growth partners for health, fitness and beauty brands. Marketing. Sales. Reach.</p>
         </div>
         <div class="footer-col">
           <h5>Company</h5>
           <a href="#" onclick="showPage('home'); return false;">Home</a>
-          <a href="#booking">Book a Call</a>
+          <a href="#booking" onclick="goBooking(event); return false;">Book a Call</a>
         </div>
         <div class="footer-col">
           <h5>Branches</h5>
@@ -1345,7 +1440,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© <span class="year">2026</span> With Agency Group. All rights reserved.</p>
+        <p>© 2026 With Agency Group. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -1439,7 +1534,7 @@
       <span class="section-label fade-up">Ready to Grow?</span>
       <h2 class="fade-up d1">Your audience is waiting<br/>to find you. <em>Let's go.</em></h2>
       <p class="fade-up d2">Book a strategy call and we'll walk you through exactly what growth looks like for your brand.</p>
-      <a href="#" onclick="return false;" aria-disabled="true" class="sticker sticker-lg fade-up d3 d-ib">
+      <a href="#booking" onclick="goBooking(event); return false;" class="sticker sticker-lg fade-up d3 d-ib">
         <div class="sticker-pill">Book a Call →</div>
       </a>
     </div>
@@ -1450,13 +1545,13 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img data-src-from="img-footlogo" alt="With Agency Group" class="footer-brand-logo" />
-          <p>Boutique growth partners for course creators and training brands.</p>
+          <p>Boutique growth partners for health, fitness and beauty brands.</p>
         </div>
-        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">Home</a><a href="#mktg-booking">Book a Call</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">Home</a><a href="#booking" onclick="goBooking(event); return false;">Book a Call</a></div>
         <div class="footer-col"><h5>Branches</h5><a href="#" onclick="showPage('marketing'); return false;">Marketing With Agency</a><a href="#" onclick="showPage('sales'); return false;">Sales With Agency</a></div>
         <div class="footer-col"><h5>Newsletters</h5><a href="#" onclick="showPage('gym'); return false;">Gym Content Report</a><a href="#" onclick="showPage('pilates'); return false;">The Pilates Report</a></div>
       </div>
-      <div class="footer-bottom"><p>© <span class="year">2026</span> With Agency Group. All rights reserved.</p></div>
+      <div class="footer-bottom"><p>© 2026 With Agency Group. All rights reserved.</p></div>
     </div>
   </footer>
 </div>
@@ -1557,7 +1652,7 @@
         <div class="fade-up d2">
           <div class="sales-fit">
             <span class="section-label">Who This Is For</span>
-            <h3>Course creators and training brands ready to get serious about revenue.</h3>
+            <h3>Boutique health, fitness and beauty brands ready to get serious about revenue.</h3>
             <ul class="check-list">
               <li>You have an offer but inconsistent sales</li>
               <li>You're doing outreach but it's not converting</li>
@@ -1580,7 +1675,7 @@
         <span class="section-label" style="color:#f5c8c8;">Next Step</span>
         <h2>Your sales system <em>starts here.</em></h2>
         <p>Book a no-pressure discovery call. We'll show you exactly how we'd approach your growth.</p>
-        <a href="#" onclick="return false;" aria-disabled="true" class="sticker sticker-lg d-ib">
+        <a href="#booking" onclick="goBooking(event); return false;" class="sticker sticker-lg d-ib">
           <div class="sticker-pill" style="background:rgba(250,248,238,0.95);border-color:rgba(250,248,238,0.4);">Book a Discovery Call →</div>
         </a>
       </div>
@@ -1592,13 +1687,13 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img data-src-from="img-footlogo" alt="With Agency Group" class="footer-brand-logo" />
-          <p>Boutique growth partners for course creators and training brands.</p>
+          <p>Boutique growth partners for health, fitness and beauty brands.</p>
         </div>
-        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">Home</a><a href="#sales-booking">Book a Call</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">Home</a><a href="#booking" onclick="goBooking(event); return false;">Book a Call</a></div>
         <div class="footer-col"><h5>Branches</h5><a href="#" onclick="showPage('marketing'); return false;">Marketing With Agency</a><a href="#" onclick="showPage('sales'); return false;">Sales With Agency</a></div>
         <div class="footer-col"><h5>Newsletters</h5><a href="#" onclick="showPage('gym'); return false;">Gym Content Report</a><a href="#" onclick="showPage('pilates'); return false;">The Pilates Report</a></div>
       </div>
-      <div class="footer-bottom"><p>© <span class="year">2026</span> With Agency Group. All rights reserved.</p></div>
+      <div class="footer-bottom"><p>© 2026 With Agency Group. All rights reserved.</p></div>
     </div>
   </footer>
 </div>
@@ -1650,7 +1745,7 @@
             <li>Revenue strategies tied to your content</li>
             <li>Industry trends and what they mean for you</li>
           </ul>
-          <a href="#" onclick="return false;" aria-disabled="true" class="sticker">
+          <a href="#" onclick="showPage('gym'); return false;" class="sticker">
             <div class="sticker-pill-blue">Visit gymcontentreport.com →</div>
           </a>
         </div>
@@ -1715,7 +1810,7 @@
         <div class="footer-col"><h5>Branches</h5><a href="#" onclick="showPage('marketing'); return false;">Marketing With Agency</a><a href="#" onclick="showPage('sales'); return false;">Sales With Agency</a></div>
         <div class="footer-col"><h5>Also From Us</h5><a href="#" onclick="showPage('pilates'); return false;">The Pilates Report</a></div>
       </div>
-      <div class="footer-bottom"><p>© <span class="year">2026</span> With Agency Group. All rights reserved.</p></div>
+      <div class="footer-bottom"><p>© 2026 With Agency Group. All rights reserved.</p></div>
     </div>
   </footer>
 </div>
@@ -1767,20 +1862,21 @@
             <li>Real case studies from growing studios</li>
             <li>Community and retention strategies</li>
           </ul>
-          <a href="#" onclick="return false;" aria-disabled="true" class="sticker">
+          <a href="#" onclick="showPage('pilates'); return false;" class="sticker">
             <div class="sticker-pill-dark">Visit thepilatesreport.com →</div>
           </a>
         </div>
         <div class="subscribe-box fade-up d2">
           <h3>Join The Report</h3>
           <p>Weekly business and marketing intelligence for pilates studio owners. Free.</p>
-          <form class="sub-form" onsubmit="return false;">
-            <input type="text" placeholder="First name" />
-            <input type="email" placeholder="Email address" />
-            <a href="#" class="sticker" style="display:block;">
-              <div class="sticker-pill-dark ta-c">Subscribe Free →</div>
-            </a>
-          </form>
+          <!-- PORTFOLIO DEMO: static stand-in for the live beehiiv subscribe form.
+               Non-functional by design so demo visitors cannot subscribe real addresses. -->
+          <div class="beehiiv-embed">
+            <div class="demo-form">
+              <span class="demo-input">Enter your email</span>
+              <span class="demo-btn">Subscribe</span>
+            </div>
+          </div>
           <p class="sub-note">Join pilates studio owners. Unsubscribe anytime.</p>
         </div>
       </div>
@@ -1828,11 +1924,11 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand"><img data-src-from="img-footlogo" alt="With Agency Group" class="footer-brand-logo" /><p>A newsletter by With Agency Group.</p></div>
-        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">With Agency Group</a><a href="#" onclick="showPage('pilates'); return false;">thepilatesreport.com</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="#" onclick="showPage('home'); return false;">With Agency Group</a></div>
         <div class="footer-col"><h5>Branches</h5><a href="#" onclick="showPage('marketing'); return false;">Marketing With Agency</a><a href="#" onclick="showPage('sales'); return false;">Sales With Agency</a></div>
-        <div class="footer-col"><h5>Also From Us</h5><a href="#" onclick="showPage('gym'); return false;">Gym Content Report</a></div>
+        <div class="footer-col"><h5>Also From Us</h5><a href="#" onclick="showPage('gym'); return false;">Gym Content Report</a><a href="#" onclick="showPage('pilates'); return false;">The Pilates Report</a></div>
       </div>
-      <div class="footer-bottom"><p>© <span class="year">2026</span> With Agency Group. All rights reserved.</p></div>
+      <div class="footer-bottom"><p>© 2026 With Agency Group. All rights reserved.</p></div>
     </div>
   </footer>
 </div>
@@ -1853,6 +1949,23 @@
       if (nlSticker) nlSticker.classList.add('active-sticker');
     }
     setTimeout(triggerFades, 60);
+    setTimeout(initBeehiivEmbeds, 80);
+  }
+
+  /* Newsletter pages start as display:none, so beehiiv's loader can initialise into a
+     zero-size hidden container and render nothing. When a page actually becomes visible,
+     re-inject the loader for any embed that hasn't produced an iframe yet. */
+  function initBeehiivEmbeds() {
+    document.querySelectorAll('.page.active .beehiiv-embed').forEach(function (wrap) {
+      if (wrap.querySelector('iframe')) return;            // already rendered
+      var old = wrap.querySelector('script[data-beehiiv-form]');
+      if (!old) return;
+      var fresh = document.createElement('script');
+      fresh.async = true;
+      fresh.src = old.getAttribute('src');
+      fresh.setAttribute('data-beehiiv-form', old.getAttribute('data-beehiiv-form'));
+      old.parentNode.replaceChild(fresh, old);
+    });
   }
 
   // Always send the visitor to the Home page's "Book a Strategy Call" section,
@@ -1934,7 +2047,6 @@
     var src = document.getElementById(im.getAttribute('data-src-from'));
     if (src) im.src = src.src;
   });
-  document.querySelectorAll('.year').forEach(function (y) { y.textContent = new Date().getFullYear(); });
 </script>
 </div>
 </body>
